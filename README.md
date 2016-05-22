@@ -36,9 +36,13 @@ To create a basic graph, create a fenced code block with a `dot` class, like so:
 	```dot
 	graph graphname{
 		a -- b -- c
-		b -- c
+		b -- d
 	}
 	```
+
+The result will be:
+
+![a simple example](./images/simple_example.png)
 
 #### Adding captions
 
@@ -90,4 +94,4 @@ You can use full math mode inside a node's label. See example:
 	}
 	```
 
-![](./images/example_math.png)
+![math mode example](./images/example_math.png)

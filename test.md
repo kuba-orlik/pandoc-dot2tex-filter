@@ -32,3 +32,9 @@ graph graphname{
 	a -- b
 }
 ```
+
+```{.dot scale="0.5"}
+graph tall{
+	a -- b -- c -- d -- e -- f -- g
+}
+```

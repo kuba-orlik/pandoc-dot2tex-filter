@@ -1,6 +1,8 @@
 # pandoc-dot2tex-filter
 
-This is a [pandoc](http://pandoc.org/) filter that converts [`dot`](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29) code into latex-friendly [PGF/TikZ](https://en.wikipedia.org/wiki/PGF/TikZ). It is basically just a wrapper for [`dot2tex` ](https://pypi.python.org/pypi/dot2tex). Because of the nature of the PGF/TikZ format, this filter is only suitable for exporting to `latex` and `pdf`. Rendering to PGF/TikZ gives a better-looking result in pdfs than using a raster image. If you want to convert a document containing `dot` graphs to different formats, check out the `graphviz` filter from the [pandocfilters](https://pypi.python.org/pypi/pandocfilters) package, which renders the graphs to `png`s end embeds them in the output document.
+This is a [pandoc](http://pandoc.org/) filter that converts [`dot`](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29) code into latex-friendly [PGF/TikZ](https://en.wikipedia.org/wiki/PGF/TikZ). It is basically just a wrapper for [`dot2tex` ](https://pypi.python.org/pypi/dot2tex). 
+
+Because of the nature of the PGF/TikZ format, this filter is only suitable for exporting to `latex` and `pdf`. Rendering to PGF/TikZ gives a better-looking result in pdfs than using a raster image. If you want to convert a document containing `dot` graphs to different formats, check out the `graphviz` filter from the [pandocfilters](https://pypi.python.org/pypi/pandocfilters) package, which renders the graphs to `png`s end embeds them in the output document.
 
 ## Requirements
 
@@ -22,6 +24,7 @@ $> pandoc source.md --filter ./path/to/dot2tex-filter.py -H ./path/to/tikz-pream
 * edit the default template, so it contains this code:
   ```
   \usepackage{tikz}
+  \usetikzlibrary{shapes,arrows}
   ```
 * tell pandoc to embed the `tikz-preamble.latex` (included in this repository) in the document's preamble, by adding `-H ./path/to/tikz-preamble.latex` to the `pandoc` command.
 
@@ -95,3 +98,19 @@ You can use full math mode inside a node's label. See example:
 	```
 
 ![math mode example](./images/example_math.png)
+
+#### Scaling the graph
+
+If the graph does not fit in your page, use the `scale` attribute:
+
+    ```{.dot scale="0.5"}
+	graphname tall{
+		a -- b -- c -- d -- e -- f
+	}
+	```
+	
+It will make the distance between the nodes shorter, but it won't scale the label text.
+
+#### More examples
+
+If you want to learn more about dot2tex-specific graph attributes, check out [this article](http://dot2tex.readthedocs.io/en/latest/customization_guide.html)

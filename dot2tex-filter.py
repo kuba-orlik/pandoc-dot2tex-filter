@@ -4,8 +4,8 @@ from pandocfilters import toJSONFilter, Str, RawBlock
 from subprocess import Popen, PIPE, STDOUT
 
 def dot2tex(key, value, format, meta):
-    if not format=="latex":
-        # rise ValueError("This filter works only with latex/pdf output format")
+    if format not in ["latex", "beamer"]:
+        # rise ValueError("This filter works only with latex/pdf or beamer/pdf output formats")
         pass
     if key=="CodeBlock"and "dot" in value[0][1]:
         caption = ""

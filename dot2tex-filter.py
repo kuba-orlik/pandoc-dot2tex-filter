@@ -5,8 +5,7 @@ from subprocess import Popen, PIPE, STDOUT
 
 def dot2tex(key, value, format, meta):
     if format not in ["latex", "beamer"]:
-        # rise ValueError("This filter works only with latex/pdf or beamer/pdf output formats")
-        pass
+        raise ValueError("This filter works only with latex/pdf or beamer/pdf output formats")
     if key=="CodeBlock"and "dot" in value[0][1]:
         caption = ""
         label = ""
@@ -25,7 +24,16 @@ def dot2tex(key, value, format, meta):
         if len(err) != 0:
             raise ValueError(err)
         tikz_code = response[0].decode("utf-8")
-        result = "\\begin{figure}\n\\centering\\begin{tikzpicture}[scale=" + scale + "]" + tikz_code + "\\end{tikzpicture}\\caption{" + caption + "} \\label{" + label + "}\\end{figure}"
+        result = "\\begin{figure}"
+        result += "\\centering"
+        result += "\\begin{tikzpicture}[scale=" + scale + "]"
+        result += tikz_code
+        result += "\\end{tikzpicture}"
+        if len(caption) != 0:
+            result += "\\caption{" + caption + "}"
+        if len(label) != 0:
+            result += " \\label{" + label + "}"
+        result += "\\end{figure}"
         return {
             "c": [
                 "latex",

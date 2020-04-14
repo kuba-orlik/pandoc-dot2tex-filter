@@ -20,7 +20,7 @@ def dot2tex(key, value, format, meta):
                 scale = pair[1]
         graph = value[1]
         p = Popen(['dot2tex', '--figonly', '--autosize', '--codeonly'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        response = p.communicate(input=bytes(graph, "utf-8"))
+        response = p.communicate(input=graph.encode("utf-8"))
         err = response[1].decode("utf-8")
         if len(err) != 0:
             raise ValueError(err)
